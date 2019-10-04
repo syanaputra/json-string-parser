@@ -14,5 +14,8 @@
   "homepage": "https://github.com/ashleygwilliams/my_package",
   "devDependencies": {
     "mocha": "^6.2.0"
+  },
+  "dependencies": {
+    "numeral": "^2.0.6"
   }
 }
