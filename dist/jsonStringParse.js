@@ -109,7 +109,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;function _typeof
 (function () {
   'use strict';
 
-  var StringWizard = function StringWizard(text) {
+  function jsonStringParse(text) {
     var rules = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
     var additionalConfig = arguments.length > 2 ? arguments[2] : undefined;
     var stringLogic = {
@@ -221,7 +221,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;function _typeof
       result = applyRule(result, rule);
     });
     return result;
-  }; // class StringWizard {
+  }
+
+  ; // class StringWizard {
   //     constructor(rules = []) {
   //         this.rules = rules || [];
   //     }
@@ -357,21 +359,20 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;function _typeof
   //
   // }
 
-
   if ( true && module.exports) {
-    StringWizard["default"] = StringWizard;
-    module.exports = StringWizard;
+    jsonStringParse["default"] = jsonStringParse;
+    module.exports = jsonStringParse;
   } else if ( true && _typeof(__webpack_require__(0)) === 'object' && __webpack_require__(0)) {
     // register as 'classnames', consistent with npm package name
     !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function () {
-      return StringWizard;
+      return jsonStringParse;
     }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
   } else {
-    window.StringWizard = StringWizard;
+    window.jsonStringParse = jsonStringParse;
   }
 })();
 
 /***/ })
 /******/ ]);
-//# sourceMappingURL=StringWizard.js.map
+//# sourceMappingURL=jsonStringParse.js.map

@@ -12,10 +12,10 @@ const paths = {
 
 // Webpack configuration
 module.exports = {
-    entry: path.join(paths.SRC, 'StringWizard.js'),
+    entry: path.join(paths.SRC, 'jsonStringParse.js'),
     output: {
         path: paths.DIST,
-        filename: 'StringWizard.js'
+        filename: 'jsonStringParse.js'
     },
     plugins: [],
     // Loaders configuration

@@ -1,7 +1,7 @@
 var assert = require('assert');
-var StringWizard = require('../dist/StringWizard');
+var jsonStringParse = require('../src/jsonStringParse.js');
 
-describe('StringWizard', function () {
+describe('jsonStringParse', function () {
     describe('Basic Functions', function () {
         describe('# trim', function () {
 
@@ -10,168 +10,181 @@ describe('StringWizard', function () {
                     rules = [{
                         "type": "trim",
                     }],
-                    output = StringWizard(text, rules);
+                    result = jsonStringParse(text, rules);
 
-                console.error(StringWizard);
-
-                console.log(output);
-
-                assert.equal(output, 'text');
+                assert.equal(result, 'text');
             });
 
             it('trims given array', function () {
-                var sw = new StringWizard([]);
-                sw.addRule({
-                    "type": "trim",
-                });
-
-                var result = sw.build([' a ', ' aa ']);
+                var text = [' a ', ' aa '],
+                    rules = [{
+                        "type": "trim",
+                    }],
+                    result = jsonStringParse(text, rules);
 
                 assert.equal(result[0], 'a');
                 assert.equal(result[1], 'aa');
             });
 
         });
-    //
-    //     describe('# split', function () {
-    //
-    //         it('split text into array', function () {
-    //             var sw = new StringWizard([]);
-    //             sw.addRule({
-    //                 "type": "split",
-    //                 "value": ",",
-    //             });
-    //
-    //             var result = sw.build("1,2");
-    //
-    //             assert.equal(result[0], '1');
-    //             assert.equal(result[1], '2');
-    //         });
-    //
-    //     });
-    //
-    //     describe('# join', function () {
-    //
-    //         it('join array into text', function () {
-    //             var sw = new StringWizard([]);
-    //             sw.addRule({
-    //                 "type": "join",
-    //                 "value": ",",
-    //             });
-    //
-    //             assert.equal(sw.build([1, 2]), '1,2');
-    //         });
-    //
-    //     });
-    //
-    //     describe('# prependText', function () {
-    //
-    //         it('prepend text with text', function () {
-    //             var sw = new StringWizard([]);
-    //             sw.addRule({
-    //                 "type": "prependText",
-    //                 "value": "lorem",
-    //             });
-    //
-    //             assert.equal(sw.build('ipsum'), 'loremipsum');
-    //         });
-    //
-    //     });
-    //
-    //     describe('# appendText', function () {
-    //
-    //         it('append text with text', function () {
-    //             var sw = new StringWizard([]);
-    //             sw.addRule({
-    //                 "type": "appendText",
-    //                 "value": "lorem",
-    //             });
-    //
-    //             assert.equal(sw.build('ipsum'), 'ipsumlorem');
-    //         });
-    //
-    //     });
-    //
-    //     describe('# replaceText', function () {
-    //
-    //         it('replace text with a new one', function () {
-    //             var sw = new StringWizard([]);
-    //             sw.addRule({
-    //                 "type": "replaceText",
-    //                 "search": "a",
-    //                 "replacement": "e",
-    //             });
-    //
-    //             assert.equal(sw.build('ball'), 'bell');
-    //         });
-    //
-    //     });
-    //
-    //     describe('# invalid rule', function () {
-    //
-    //         it('ignores undefined rule', function () {
-    //             var sw = new StringWizard([]);
-    //             sw.addRule({
-    //                 "type": "randomrulethatdoesnotexist",
-    //                 "value": "lorem",
-    //             });
-    //
-    //             assert.equal(sw.build('lorem'), 'lorem');
-    //         });
-    //
-    //     });
-    // });
-    //
-    // describe('Complex Scenarios', function () {
-    //
-    //     describe('# 1 - split > prependText', function () {
-    //
-    //         it('should add "order-" in front of array of numbers', function () {
-    //             var sw = new StringWizard([]);
-    //             sw.addRule({
-    //                 "type": "split",
-    //                 "value": ",",
-    //             });
-    //             sw.addRule({
-    //                 "type": "prependtext",
-    //                 "value": "order-",
-    //                 "conditions": [],
-    //             });
-    //
-    //             var result = sw.build('1,2');
-    //
-    //             assert.equal(result[0], 'order-1');
-    //             assert.equal(result[1], 'order-2');
-    //         });
-    //
-    //     });
-    //
-    //     describe('# 2 - split (,) > trim > prependText > join (-)', function () {
-    //
-    //         it('should add "x" and combined with "-', function () {
-    //             var sw = new StringWizard([]);
-    //             sw.addRule({
-    //                 "type": "split",
-    //                 "value": ",",
-    //             });
-    //             sw.addRule({
-    //                 "type": "trim",
-    //             });
-    //             sw.addRule({
-    //                 "type": "prependtext",
-    //                 "value": "x",
-    //                 "conditions": [],
-    //             });
-    //             sw.addRule({
-    //                 "type": "join",
-    //                 "value": "-",
-    //             });
-    //
-    //             var result = sw.build(' 100 , 530');
-    //
-    //             assert.equal(result, 'x100-x530');
-    //         });
-    //
-    //     });
+
+        describe('# split', function () {
+
+            it('split text into array', function () {
+                var text = "1,2",
+                    rules = [{
+                        "type": "split",
+                        "value": ",",
+                    }],
+                    result = jsonStringParse(text, rules);
+
+                assert.equal(result[0], '1');
+                assert.equal(result[1], '2');
+            });
+
+        });
+
+        describe('# join', function () {
+
+            it('join array into text', function () {
+                var text = [1, 2],
+                    rules = [{
+                        "type": "join",
+                        "value": ",",
+                    }],
+                    result = jsonStringParse(text, rules);
+
+                assert.equal(result, '1,2');
+            });
+
+        });
+
+        describe('# prependText', function () {
+
+            it('prepend text with text', function () {
+                var text = "ipsum",
+                    rules = [{
+                        "type": "prependText",
+                        "value": "lorem",
+                    }],
+                    result = jsonStringParse(text, rules);
+
+                assert.equal(result, 'loremipsum');
+            });
+
+        });
+
+        describe('# appendText', function () {
+
+            it('append text with text', function () {
+                var text = "ipsum",
+                    rules = [{
+                        "type": "appendText",
+                        "value": "lorem",
+                    }],
+                    result = jsonStringParse(text, rules);
+
+                assert.equal(result, 'ipsumlorem');
+            });
+
+        });
+
+        describe('# replaceText', function () {
+
+            it('replace text with a new one', function () {
+                var text = "ball",
+                    rules = [{
+                        "type": "replaceText",
+                        "search": "a",
+                        "replacement": "e",
+                    }],
+                    result = jsonStringParse(text, rules);
+
+                assert.equal(result, 'bell');
+            });
+
+            it('replace text which appears more than once', function () {
+                var text = "ball",
+                    rules = [{
+                        "type": "replaceText",
+                        "search": "l",
+                        "replacement": "r",
+                    }],
+                    result = jsonStringParse(text, rules);
+
+                assert.equal(result, 'barr');
+            });
+
+        });
+
+        describe('# invalid rule', function () {
+
+            it('ignores undefined rule', function () {
+                var text = "lorem",
+                    rules = [{
+                        "type": "randomrulethatdoesnotexist",
+                        "value": "lorem",
+                    }],
+                    result = jsonStringParse(text, rules);
+
+                assert.equal(result, 'lorem');
+            });
+
+        });
+    });
+
+    describe('Complex Scenarios', function () {
+
+        describe('# 1 - split > prependText', function () {
+
+            it('should add "order-" in front of array of numbers', function () {
+                var text = "1,2",
+                    rules = [
+                        {
+                            "type": "split",
+                            "value": ",",
+                        },
+                        {
+                            "type": "prependtext",
+                            "value": "order-",
+                            "conditions": [],
+                        }
+                    ],
+                    result = jsonStringParse(text, rules);
+
+                assert.equal(result[0], 'order-1');
+                assert.equal(result[1], 'order-2');
+            });
+
+        });
+
+        describe('# 2 - split (,) > trim > prependText > join (-)', function () {
+
+            it('should add "x" and combined with "-', function () {
+                var text = " 100 , 530",
+                    rules = [
+                        {
+                            "type": "split",
+                            "value": ",",
+                        },
+                        {
+                            "type": "trim",
+                        },
+                        {
+                            "type": "prependtext",
+                            "value": "x",
+                            "conditions": [],
+                        },
+                        {
+                            "type": "join",
+                            "value": "-",
+                        }
+                    ],
+                    result = jsonStringParse(text, rules);
+
+                assert.equal(result, 'x100-x530');
+            });
+
+        });
     });
 });

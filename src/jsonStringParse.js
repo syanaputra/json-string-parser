@@ -7,11 +7,11 @@
 (function () {
     'use strict';
 
-    const StringWizard = (text, rules = [], additionalConfig) => {
+    function jsonStringParse(text, rules = [], additionalConfig) {
         let stringLogic = {
             split: (input, rule) => {
                 let result = input;
-                if(typeof(rule.value) != 'undefined') {
+                if (typeof (rule.value) != 'undefined') {
                     result = input.split(rule.value);
                 }
 
@@ -20,12 +20,11 @@
             join: (input, rule) => {
                 let result = input;
 
-                if(Array.isArray(input)) {
-                    if(typeof(rule.value) != 'undefined') {
+                if (Array.isArray(input)) {
+                    if (typeof (rule.value) != 'undefined') {
                         result = input.join(rule.value);
                     }
-                }
-                else {
+                } else {
                     console.error('join - Error: Input has to be an array');
                 }
 
@@ -36,10 +35,11 @@
 
                 const execRule = (original) => original.trim();
 
-                if(Array.isArray(input)) {
-                    result = input.map(function (item) { return execRule(item); });
-                }
-                else {
+                if (Array.isArray(input)) {
+                    result = input.map(function (item) {
+                        return execRule(item);
+                    });
+                } else {
                     result = execRule(input);
                 }
 
@@ -50,10 +50,11 @@
 
                 const execRule = (original, value) => original + value;
 
-                if(Array.isArray(input)) {
-                    result = input.map(function (item) { return execRule(item, rule.value); });
-                }
-                else {
+                if (Array.isArray(input)) {
+                    result = input.map(function (item) {
+                        return execRule(item, rule.value);
+                    });
+                } else {
                     result = execRule(input, rule.value);
                 }
 
@@ -64,10 +65,11 @@
 
                 const execRule = (original, value) => value + original;
 
-                if(Array.isArray(input)) {
-                    result = input.map(function (item) { return execRule(item, rule.value); });
-                }
-                else {
+                if (Array.isArray(input)) {
+                    result = input.map(function (item) {
+                        return execRule(item, rule.value);
+                    });
+                } else {
                     result = execRule(input, rule.value);
                 }
 
@@ -76,13 +78,14 @@
             replacetext: (input, rule) => {
                 let result = input;
 
-                const execRule = (original, search, replacement) => original.replace(search, replacement);
+                const execRule = (original, search, replacement) => original.replace(new RegExp(search, 'g'), replacement);
 
-                if(Array.isArray(input)) {
-                    result = input.map(function (item) { return execRule(item, rule.value); });
-                }
-                else {
-                    result = execRule(input, rule.value);
+                if (Array.isArray(input)) {
+                    result = input.map(function (item) {
+                        return execRule(item, rule.search, rule.replacement);
+                    });
+                } else {
+                    result = execRule(input, rule.search, rule.replacement);
                 }
 
                 return result;
@@ -92,9 +95,12 @@
 
         const applyRule = (result, rule) => {
             if(typeof(rule.type) != 'undefined' && stringLogic[rule.type] != 'undefined') {
-                let func = stringLogic[rule.type];
+                const ruleType = rule.type ? rule.type.toLowerCase() : '';
+                let func = stringLogic[ruleType] || null;
 
-                return func(result, rule);
+                if(func != null) {
+                    return func(result, rule);
+                }
             }
 
             return result;
@@ -102,7 +108,6 @@
 
         let result = text;
         rules.forEach((rule) => {
-            console.log(result);
             result = applyRule(result, rule);
         });
 
@@ -246,14 +251,14 @@
     // }
 
     if (typeof module !== 'undefined' && module.exports) {
-        StringWizard.default = StringWizard;
-        module.exports = StringWizard;
+        jsonStringParse.default = jsonStringParse;
+        module.exports = jsonStringParse;
     } else if (typeof define === 'function' && typeof define.amd === 'object' && define.amd) {
         // register as 'classnames', consistent with npm package name
-        define('StringWizard', [], function () {
-            return StringWizard;
+        define('jsonStringParse', [], function () {
+            return jsonStringParse;
         });
     } else {
-        window.StringWizard = StringWizard;
+        window.jsonStringParse = jsonStringParse;
     }
 }());
