@@ -115,6 +115,42 @@ describe('jsonStringParse', function () {
                 assert.equal(result, 'barr');
             });
 
+            it('replace text with meta characters (dot)', function () {
+                var text = "1.000",
+                    rules = [{
+                        "type": "replaceText",
+                        "search": '.',
+                        "replacement": ",",
+                    }],
+                    result = jsonStringParse(text, rules);
+
+                assert.equal(result, '1,000');
+            });
+
+            it('replace text with meta characters (dollar)', function () {
+                var text = "$1.000",
+                    rules = [{
+                        "type": "replaceText",
+                        "search": '$',
+                        "replacement": "Rp.",
+                    }],
+                    result = jsonStringParse(text, rules);
+
+                assert.equal(result, 'Rp.1.000');
+            });
+
+            it('replace text with meta characters (backslash)', function () {
+                var text = "C:\\xampp",
+                    rules = [{
+                        "type": "replaceText",
+                        "search": '\\',
+                        "replacement": "/",
+                    }],
+                    result = jsonStringParse(text, rules);
+
+                assert.equal(result, 'C:/xampp');
+            });
+
         });
 
         describe('# invalid rule', function () {
