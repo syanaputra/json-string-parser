@@ -1,9 +1,10 @@
 {
-  "name": "@syanaputra/string-wizard",
+  "name": "@syanaputra/json-string-modifier",
   "version": "0.0.1",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "build": "webpack",
+    "test": "mocha test/*.js"
   },
   "author": "Stephanus Yanaputra",
   "license": "MIT",
@@ -13,7 +14,18 @@
   },
   "homepage": "https://github.com/ashleygwilliams/my_package",
   "devDependencies": {
-    "mocha": "^6.2.0"
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.3.4",
+    "@babel/plugin-proposal-class-properties": "^7.3.4",
+    "@babel/plugin-proposal-object-rest-spread": "^7.3.4",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/preset-env": "^7.3.4",
+    "babel-eslint": "^10.0.1",
+    "babel-loader": "^8.0.5",
+    "mocha": "^6.2.0",
+    "uglifyjs-webpack-plugin": "^1.2.5",
+    "webpack": "^4.28.4",
+    "webpack-cli": "^3.3.9"
   },
   "dependencies": {
     "numeral": "^2.0.6"
