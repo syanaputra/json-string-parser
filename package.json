@@ -1,5 +1,5 @@
 {
-  "name": "json-string-parser",
+  "name": "@syanaputra/json-string-parser",
   "version": "0.0.1",
   "main": "index.js",
   "scripts": {
