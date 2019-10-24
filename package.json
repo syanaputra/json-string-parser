@@ -1,5 +1,5 @@
 {
-  "name": "@syanaputra/json-string-modifier",
+  "name": "json-string-parser",
   "version": "0.0.1",
   "main": "index.js",
   "scripts": {
@@ -8,11 +8,11 @@
   },
   "author": "Stephanus Yanaputra",
   "license": "MIT",
-  "description": "",
+  "description": "Perform string modification with by specifying the given JSON rules",
   "bugs": {
-    "url": "https://github.com/ashleygwilliams/my_package/issues"
+    "url": "https://github.com/syanaputra/json-string-parser/issues"
   },
-  "homepage": "https://github.com/ashleygwilliams/my_package",
+  "homepage": "https://github.com/syanaputra/json-string-parser",
   "devDependencies": {
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.3.4",
